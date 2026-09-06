@@ -1,16 +1,35 @@
-# React + Vite
+# 引っ越しチェックリスト
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+引っ越し・一人暮らしの準備を 1 つにまとめた iPhone 向け PWA。
+ホーム画面に追加するとスタンドアロン表示になり、オフラインでも開けます。
 
-Currently, two official plugins are available:
+**入力したデータは端末内に留まります。** サーバーへ送信しません。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 4 つのタブ
 
-## React Compiler
+| タブ | 内容 |
+|---|---|
+| ✅ チェック | 「2ヶ月以上前 / 1ヶ月前 / …」と時期別に並べたやることリスト。各項目に補足と優先度バッジ付き |
+| 💰 費用管理 | 賃貸契約関連（敷金・礼金・仲介手数料・火災保険・鍵交換など）と引っ越し費用の見積もり。相場を各項目に表示 |
+| 🔍 物件検索 | 都道府県・間取りの条件から、主要な不動産サイトの検索結果へ遷移する |
+| 📦 配送費用 | ヤマト・佐川・ゆうパックのサイズ別・地域別料金を比較する |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 開発
 
-## Expanding the ESLint configuration
+```bash
+npm install
+npm run dev      # 開発サーバー
+npm run build    # 本番ビルド（PWA のサービスワーカーも生成される）
+npm run lint
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+React 19 + Vite + `vite-plugin-pwa`。状態管理ライブラリやバックエンドは使っていません。
+タブの構成は `src/App.jsx` に集約し、各タブは `src/components/*Tab.jsx` に 1 ファイルずつ。
+
+## 変更するときの注意
+
+- **料金表・相場の数値は参考値**です。更新するときは出典（各社の公式料金ページ）を確認してから直します。
+  推測で埋めないでください。
+- タブを増やすときは、ボトムナビが片手で押せる幅を保てるかを先に確認します。
+- PWA の設定（`vite.config.js` の `VitePWA`）とアイコンを壊さないこと。
+  ホーム画面追加とオフライン起動がこのアプリの前提です。
